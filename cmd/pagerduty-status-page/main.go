@@ -22,12 +22,12 @@ func main() {
 	if err != nil {
 		log.Fatal(err.Error())
 	}
-	dbclient := dbclient.RunDB()
 	pdconn := pagerduty.NewClient(s.PagerDutyAuthToken)
 	pdclient := pd.NewAPIClient(pdconn)
-	manager := manage.Manage{pdclient, dbclient}
-	u := ui.Ui{pdclient, dbclient}
-	err = manager.Incidents()
+	incidents := make(map[string][]dbclient.Incident)
+	manager := manage.Manage{pdclient, incidents}
+	u := ui.Ui{pdclient, incidents}
+	err = manager.GetIncidents()
 	if err != nil {
 		fmt.Println("Problem")
 	}

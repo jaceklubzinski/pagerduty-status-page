@@ -11,7 +11,7 @@ import (
 
 type Ui struct {
 	pd.Lister
-	dbclient.Storer
+	Incidents map[string][]dbclient.Incident
 }
 
 func (u *Ui) Listen() {
@@ -21,29 +21,9 @@ func (u *Ui) Listen() {
 
 func (u *Ui) manage(w http.ResponseWriter, req *http.Request) {
 
-	s, err := u.Storer.GetServices()
-	if err != nil {
-		log.Errorln(err)
-	}
+	t := template.Must(template.ParseFiles("pkg/ui/services_v3.tmpl"))
 
-	UITemplate, err := template.New("incidents.tmpl").Funcs(template.FuncMap{
-		"getIncidents": func(service string) []dbclient.Incident {
-			i, err := u.GetIncidents(service)
-			if err != nil {
-				log.Errorln(err)
-			}
-			return i
-		},
-	}).ParseFiles("incidents.tmpl")
-	if err != nil {
-		log.Errorln(err)
-	}
-
-	err = UITemplate.Execute(w, s)
-
-	//t := template.Must(template.ParseFiles("pkg/ui/services_v3.tmpl"))
-
-	//err = t.Execute(w, s)
+	err := t.Execute(w, u.Incidents)
 	if err != nil {
 		log.Errorln(err)
 	}

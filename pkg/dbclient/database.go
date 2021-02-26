@@ -8,7 +8,7 @@ import (
 
 type Store struct {
 	db        *sql.DB
-	incidents []Incident
+	Incidents []Incident
 }
 
 type Incident struct {
@@ -17,6 +17,10 @@ type Incident struct {
 	Status    string
 	Urgency   string
 	Createdat string
+}
+
+type Incidents struct {
+	Incident []Incident
 }
 
 type Storer interface {

@@ -7,5 +7,5 @@ import (
 
 type Manage struct {
 	pd.Lister
-	dbclient.Storer
+	Incidents map[string][]dbclient.Incident
 }
