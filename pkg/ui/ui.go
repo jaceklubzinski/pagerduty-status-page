@@ -3,15 +3,16 @@ package ui
 import (
 	"html/template"
 	"net/http"
+	"strings"
 
-	"github.com/jaceklubzinski/pagerduty-status-page/pkg/dbclient"
+	"github.com/jaceklubzinski/pagerduty-status-page/pkg/manage"
 	"github.com/jaceklubzinski/pagerduty-status-page/pkg/pd"
 	log "github.com/sirupsen/logrus"
 )
 
 type Ui struct {
 	pd.Lister
-	Incidents map[string][]dbclient.Incident
+	Incidents map[string]map[string][]manage.Incident
 }
 
 func (u *Ui) Listen() {
@@ -20,12 +21,22 @@ func (u *Ui) Listen() {
 }
 
 func (u *Ui) manage(w http.ResponseWriter, req *http.Request) {
+	/*
+		t := template.Must(template.ParseFiles("pkg/ui/services_v4.tmpl"))
 
-	t := template.Must(template.ParseFiles("pkg/ui/services_v3.tmpl"))
+		err := t.Execute(w, u.Incidents)
+		if err != nil {
+			log.Errorln(err)
+		}
+	*/
+	t := template.Must(template.New("incidents.tmpl").Funcs(template.FuncMap{
+		"trim": func(name string) string {
+			return (strings.ReplaceAll(name, " ", ""))
+		},
+	}).ParseFiles("incidents.tmpl"))
 
 	err := t.Execute(w, u.Incidents)
 	if err != nil {
 		log.Errorln(err)
 	}
-
 }
