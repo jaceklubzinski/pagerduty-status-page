@@ -3,15 +3,16 @@ package ui
 import (
 	"html/template"
 	"net/http"
+	"strings"
 
-	"github.com/jaceklubzinski/pagerduty-status-page/pkg/dbclient"
+	"github.com/jaceklubzinski/pagerduty-status-page/pkg/manage"
 	"github.com/jaceklubzinski/pagerduty-status-page/pkg/pd"
 	log "github.com/sirupsen/logrus"
 )
 
 type Ui struct {
 	pd.Lister
-	dbclient.Storer
+	Incidents map[string]map[string][]manage.Incident
 }
 
 func (u *Ui) Listen() {
@@ -20,32 +21,25 @@ func (u *Ui) Listen() {
 }
 
 func (u *Ui) manage(w http.ResponseWriter, req *http.Request) {
+<<<<<<< HEAD
+=======
+	/*
+		t := template.Must(template.ParseFiles("pkg/ui/services_v4.tmpl"))
 
-	s, err := u.Storer.GetServices()
-	if err != nil {
-		log.Errorln(err)
-	}
-
-	UITemplate, err := template.New("incidents.tmpl").Funcs(template.FuncMap{
-		"getIncidents": func(service string) []dbclient.Incident {
-			i, err := u.GetIncidents(service)
-			if err != nil {
-				log.Errorln(err)
-			}
-			return i
+		err := t.Execute(w, u.Incidents)
+		if err != nil {
+			log.Errorln(err)
+		}
+	*/
+>>>>>>> e32670f09b950a6ac8bf1db660e0930d9f5b566f
+	t := template.Must(template.New("incidents.tmpl").Funcs(template.FuncMap{
+		"trim": func(name string) string {
+			return (strings.ReplaceAll(name, " ", ""))
 		},
-	}).ParseFiles("incidents.tmpl")
+	}).ParseFiles("incidents.tmpl"))
+
+	err := t.Execute(w, u.Incidents)
 	if err != nil {
 		log.Errorln(err)
 	}
-
-	err = UITemplate.Execute(w, s)
-
-	//t := template.Must(template.ParseFiles("pkg/ui/services_v3.tmpl"))
-
-	//err = t.Execute(w, s)
-	if err != nil {
-		log.Errorln(err)
-	}
-
 }
