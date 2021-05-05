@@ -21,6 +21,17 @@ func (u *Ui) Listen() {
 }
 
 func (u *Ui) manage(w http.ResponseWriter, req *http.Request) {
+<<<<<<< HEAD
+=======
+	/*
+		t := template.Must(template.ParseFiles("pkg/ui/services_v4.tmpl"))
+
+		err := t.Execute(w, u.Incidents)
+		if err != nil {
+			log.Errorln(err)
+		}
+	*/
+>>>>>>> e32670f09b950a6ac8bf1db660e0930d9f5b566f
 	t := template.Must(template.New("incidents.tmpl").Funcs(template.FuncMap{
 		"trim": func(name string) string {
 			return (strings.ReplaceAll(name, " ", ""))
