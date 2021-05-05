@@ -1,11 +1,6 @@
 package main
 
 import (
-<<<<<<< HEAD
-=======
-	"fmt"
-	"log"
->>>>>>> e32670f09b950a6ac8bf1db660e0930d9f5b566f
 	"time"
 
 	"github.com/PagerDuty/go-pagerduty"
@@ -44,13 +39,9 @@ func main() {
 		ticker := time.NewTicker(600 * time.Second)
 		err = manager.GetIncidents()
 		if err != nil {
-<<<<<<< HEAD
 			log.WithFields(log.Fields{
 				"error": err,
 			}).Warn("problem with retrieving the incident list")
-=======
-			fmt.Println("Problem")
->>>>>>> e32670f09b950a6ac8bf1db660e0930d9f5b566f
 		}
 		for _ = range ticker.C {
 			for k := range incidents {
@@ -58,16 +49,10 @@ func main() {
 			}
 			err = manager.GetIncidents()
 			if err != nil {
-<<<<<<< HEAD
 				log.WithFields(log.Fields{
 					"error": err,
 				}).Warn("problem with retrieving the incident list")
 			}
-=======
-				fmt.Println("Problem")
-			}
-
->>>>>>> e32670f09b950a6ac8bf1db660e0930d9f5b566f
 		}
 	}()
 
