@@ -2,6 +2,7 @@ package manage
 
 import (
 	"github.com/PagerDuty/go-pagerduty"
+	log "github.com/sirupsen/logrus"
 )
 
 func (m *Manage) GetIncidents() error {
@@ -26,5 +27,6 @@ func (m *Manage) GetIncidents() error {
 
 		m.Incidents[p.Service.Summary][p.Urgency] = append(m.Incidents[p.Service.Summary][p.Urgency], i)
 	}
+	log.Debug("Incident retrived from PagerDuty")
 	return nil
 }
