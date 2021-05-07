@@ -31,6 +31,11 @@ func main() {
 			"error": err,
 		}).Warn("problem with ENVIRONMENT variables")
 	}
+
+	/**
+	 * @todo Move code in main to separate run function
+	 * @body cleanup code
+	 */
 	pdconn := pagerduty.NewClient(s.PagerDutyAuthToken)
 	pdclient := pd.NewAPIClient(pdconn)
 	incidents := make(map[string]map[string][]manage.Incident)
