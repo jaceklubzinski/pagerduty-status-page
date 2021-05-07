@@ -15,4 +15,5 @@ type Incident struct {
 	Urgency   string
 	Assigne   string
 	CreatedAt string
+	Team      string
 }

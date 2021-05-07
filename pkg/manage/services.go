@@ -1,6 +1,8 @@
 package manage
 
-import log "github.com/sirupsen/logrus"
+import (
+	log "github.com/sirupsen/logrus"
+)
 
 func (m *Manage) GetServices() error {
 	services, err := m.Lister.ListS()
@@ -8,7 +10,7 @@ func (m *Manage) GetServices() error {
 		return err
 	}
 	for _, s := range services {
-		m.Incidents[s.Name] = nil
+		m.Incidents[s.Name] = make(map[string][]Incident)
 	}
 	log.Debug("Services retrived from PagerDuty")
 

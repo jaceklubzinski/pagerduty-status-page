@@ -10,7 +10,7 @@ import (
 
 type mockAPIClient struct{}
 
-type mockLister interface {
+type mockLister interface { //nolint:golint,deadcode,unused
 	ListI(opts pagerduty.ListIncidentsOptions) (*pagerduty.ListIncidentsResponse, error)
 	ListS() ([]pagerduty.Service, error)
 }
@@ -52,15 +52,12 @@ func TestGetIncidents(t *testing.T) {
 	err := manager.GetServices()
 	if err != nil {
 		t.Fatalf("an error '%s' was not expected when get services", err)
-
 	}
 	err = manager.GetIncidents()
 	if err != nil {
 		t.Fatalf("an error '%s' was not expected when get incidents", err)
-
 	}
 	assert.Equal(t, incidents["TestS"]["High"][0].Name, "TestT")
 	assert.Equal(t, incidents["TestS"]["High"][0].Assigne, "TestA")
 	assert.Equal(t, incidents["TestS"]["High"][0].CreatedAt, "2 days")
-
 }

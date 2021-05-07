@@ -35,7 +35,7 @@ func main() {
 	pdclient := pd.NewAPIClient(pdconn)
 	incidents := make(map[string]map[string][]manage.Incident)
 	manager := manage.Manage{pdclient, incidents}
-	u := ui.Ui{pdclient, incidents}
+	u := ui.UI{pdclient, incidents}
 	err = manager.GetServices()
 	if err != nil {
 		log.WithFields(log.Fields{
@@ -51,7 +51,7 @@ func main() {
 				"error": err,
 			}).Warn("problem with retrieving the incident list")
 		}
-		for _ = range ticker.C {
+		for range ticker.C {
 			for k := range incidents {
 				delete(incidents, k)
 			}

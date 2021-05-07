@@ -7,6 +7,9 @@ import (
 
 func (m *Manage) GetIncidents() error {
 	opts := pagerduty.ListIncidentsOptions{
+		APIListObject: pagerduty.APIListObject{
+			Limit: 100,
+		},
 		Statuses: []string{"triggered", "acknowledged"}}
 	list, err := m.Lister.ListI(opts)
 	if err != nil {
@@ -20,9 +23,7 @@ func (m *Manage) GetIncidents() error {
 			Urgency:   p.Urgency,
 			Assigne:   p.Assignments[0].Assignee.Summary,
 			CreatedAt: createdAgo(p.CreatedAt),
-		}
-		if _, ok := m.Incidents[p.Service.Summary][p.Urgency]; !ok {
-			m.Incidents[p.Service.Summary] = make(map[string][]Incident)
+			Team:      p.Teams[0].Summary,
 		}
 
 		m.Incidents[p.Service.Summary][p.Urgency] = append(m.Incidents[p.Service.Summary][p.Urgency], i)

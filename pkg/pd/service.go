@@ -6,8 +6,11 @@ import (
 
 //List list all PagerDuty services
 func (c *APIClient) ListS() ([]pagerduty.Service, error) {
-	var opts pagerduty.ListServiceOptions
+	opts := pagerduty.ListServiceOptions{
+		APIListObject: pagerduty.APIListObject{
+			Limit: 100,
+		},
+	}
 	s, err := c.client.ListServices(opts)
 	return s.Services, err
-
 }
