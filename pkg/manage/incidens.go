@@ -5,6 +5,7 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
+//GetIncidents get and format PagerDuty incidents
 func (m *Manage) GetIncidents() error {
 	opts := pagerduty.ListIncidentsOptions{
 		APIListObject: pagerduty.APIListObject{
@@ -30,4 +31,11 @@ func (m *Manage) GetIncidents() error {
 	}
 	log.Debug("Incident retrived from PagerDuty")
 	return nil
+}
+
+//ClearIncidents clear incidents map
+func (m *Manage) ClearIncidents() {
+	for k := range m.Incidents {
+		delete(m.Incidents, k)
+	}
 }
