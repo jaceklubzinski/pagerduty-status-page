@@ -1,6 +1,6 @@
 version: '2.0'
 services:
   team-helper-bot:
-    image: jlubzinski/team-helper-bot:latest
+    image: jlubzinski/pagerduty-status-pager:1.0.0__linux_amd64
     environment:
       HELPERBOT_SLACK_AUTH_TOKEN:
