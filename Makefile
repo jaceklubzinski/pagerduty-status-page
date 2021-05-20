@@ -16,7 +16,7 @@
 BINS := pagerduty-status-page
 
 # Where to push the docker image.
-REGISTRY ?= jlubzinski/pd-status-page
+REGISTRY ?= jlubzinski
 
 # This version-strategy uses git tags to set the version string
 VERSION ?= $(shell git describe --tags --always --dirty)

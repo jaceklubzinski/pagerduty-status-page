@@ -40,6 +40,11 @@ func (c *mockAPIClient) ListI(opts pagerduty.ListIncidentsOptions) (*pagerduty.L
 						},
 					},
 				},
+				Teams: []pagerduty.APIObject{
+					pagerduty.APIObject{
+						Summary: "TestTeam",
+					},
+				},
 			},
 		},
 	}, nil
