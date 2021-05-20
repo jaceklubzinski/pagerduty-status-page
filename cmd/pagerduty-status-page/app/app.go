@@ -8,23 +8,18 @@ import (
 )
 
 func Run(manager manage.Manage) {
-	err := manager.GetServices()
-	if err != nil {
-		log.WithFields(log.Fields{
-			"error": err,
-		}).Warn("problem with retrieving the service list")
-	}
 
 	go func() {
 		ticker := time.NewTicker(300 * time.Second)
-		err = manager.GetIncidents()
-		if err != nil {
-			log.WithFields(log.Fields{
-				"error": err,
-			}).Warn("problem with retrieving the incident list")
-		}
-		for range ticker.C {
+
+		for ; true; <-ticker.C {
 			manager.ClearIncidents()
+			err := manager.GetServices()
+			if err != nil {
+				log.WithFields(log.Fields{
+					"error": err,
+				}).Warn("problem with retrieving the service list")
+			}
 			err = manager.GetIncidents()
 			if err != nil {
 				log.WithFields(log.Fields{
