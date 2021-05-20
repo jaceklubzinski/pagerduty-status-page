@@ -16,7 +16,7 @@ func Run(manager manage.Manage) {
 	}
 
 	go func() {
-		ticker := time.NewTicker(600 * time.Second)
+		ticker := time.NewTicker(300 * time.Second)
 		err = manager.GetIncidents()
 		if err != nil {
 			log.WithFields(log.Fields{

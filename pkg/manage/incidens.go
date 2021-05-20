@@ -35,7 +35,9 @@ func (m *Manage) GetIncidents() error {
 
 //ClearIncidents clear incidents map
 func (m *Manage) ClearIncidents() {
-	for k := range m.Incidents {
-		delete(m.Incidents, k)
+	for service, i := range m.Incidents {
+		for severity, _ := range i {
+			m.Incidents[service][severity] = nil
+		}
 	}
 }
