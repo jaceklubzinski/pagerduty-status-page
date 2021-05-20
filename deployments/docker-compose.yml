@@ -1,6 +1,6 @@
 version: '2.0'
 services:
-  team-helper-bot:
-    image: jlubzinski/pagerduty-status-page:1.0.0__linux_amd64
+  pagerduty-status-page:
+    image: jlubzinski/pagerduty-status-page:1.0.0-4-gec2f1ae__linux_amd64
     environment:
       PDSTATUS_PAGER_DUTY_AUTH_TOKEN:
