@@ -9,6 +9,10 @@ type Manage struct {
 	Incidents map[string]map[string][]Incident
 }
 
+/**
+ * @todo Add link do PD
+ * @body Additional info with direct link to PD incident
+ */
 type Incident struct {
 	Name      string
 	Service   string
