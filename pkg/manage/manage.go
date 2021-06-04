@@ -4,15 +4,13 @@ import (
 	"github.com/jaceklubzinski/pagerduty-status-page/pkg/pd"
 )
 
+//Manage struct fo managaing PagerDuty incidents
 type Manage struct {
 	pd.Lister
 	Incidents map[string]map[string][]Incident
 }
 
-/**
- * @todo Add link do PD
- * @body Additional info with direct link to PD incident
- */
+//Incident internal incident struct to map PagerDuty incident
 type Incident struct {
 	Name      string
 	Service   string
@@ -20,4 +18,5 @@ type Incident struct {
 	Assigne   string
 	CreatedAt string
 	Team      string
+	PDLink    string
 }

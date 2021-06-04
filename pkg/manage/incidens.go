@@ -25,6 +25,7 @@ func (m *Manage) GetIncidents() error {
 			Assigne:   p.Assignments[0].Assignee.Summary,
 			CreatedAt: createdAgo(p.CreatedAt),
 			Team:      p.Teams[0].Summary,
+			PDLink:    p.HTMLURL,
 		}
 
 		m.Incidents[p.Service.Summary][p.Urgency] = append(m.Incidents[p.Service.Summary][p.Urgency], i)

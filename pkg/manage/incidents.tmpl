@@ -12,7 +12,8 @@
 
     <title>Infrastracture status</title>
 
-    <style>#page_container {
+    <style>
+    #page_container {
   margin-top: 15px;
   margin-bottom: 15px;
 }
@@ -41,6 +42,11 @@
 
 .panel-title a {
   display: block;
+}
+
+a { 
+  text-decoration: none; 
+  color:#000000;
 }
 </style>
   </head>
@@ -80,7 +86,10 @@
                         </span>           
                         <span class="badge rounded-pill bg-light text-dark">
                             {{ $incident.Team }}
-                        </span>             
+                        </span>        
+                        <span class="badge rounded-pill bg-primary">
+                            <a href={{ $incident.PDLink }}>PD Link</a>
+                        </span>       
                       </div>                  
                     {{end}}
                     {{ if eq $status "high" }}
@@ -94,6 +103,9 @@
                         </span>
                         <span class="badge rounded-pill bg-light text-dark">
                             {{ $incident.Team }}
+                        </span>  
+                        <span class="badge rounded-pill bg-primary">
+                            <a href={{ $incident.PDLink }}>PD Link</a>
                         </span>  
                       </div>
                     {{end}}
