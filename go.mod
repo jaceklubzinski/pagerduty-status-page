@@ -3,7 +3,7 @@ module github.com/jaceklubzinski/pagerduty-status-page
 go 1.15
 
 require (
-	github.com/PagerDuty/go-pagerduty v1.3.0
+	github.com/PagerDuty/go-pagerduty v1.4.2
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/sirupsen/logrus v1.8.1
 	github.com/stretchr/testify v1.7.0
