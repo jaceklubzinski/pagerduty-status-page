@@ -51,35 +51,32 @@ func (u *Manage) serviceUrgentLowCount(name string) int {
 	}
 	return count
 }
-func (u *Manage) alertByService(name string) map[string]map[string]int {
-	type a struct {
-		Name    string
-		Urgency string
-		Count   int
-	}
-	var aa []a
+func (u *Manage) alertByService(service string) []string {
 
-	u.DB.Model(Incident{}).Select("name,urgency,count(*) as count").Where("status = ?", "resolved").Where("service = ?", name).Group("name,urgency").Order("3 desc").Find(&aa)
-
-	alerts := make(map[string]map[string]int)
-	for _, alert := range aa {
-		if alerts[alert.Name] == nil {
-			alerts[alert.Name] = map[string]int{}
-		}
-		alerts[alert.Name][alert.Urgency] = alert.Count
+	type alert struct {
+		Name  string
+		Count int
 	}
 
-	return alerts
+	var alerts []alert
+	var aa []string
+
+	u.DB.Model(Incident{}).Select("name,count(*) as count").Where("status = ?", "resolved").Where("service = ?", service).Group("name").Order("2 desc").Find(&alerts)
+
+	for _, a := range alerts {
+		aa = append(aa, a.Name)
+	}
+	return aa
 }
-func (u *Manage) alertUrgentHighCount(name string) int {
+func (u *Manage) alertUrgentHighCount(name string, service string) int {
 	type urgentHigh struct {
-		Service string
-		High    int
+		Alert string
+		High  int
 	}
 	var highCount []urgentHigh
 	var count int
 
-	u.DB.Model(Incident{}).Select("name,count(*) as High").Where("status = ?", "resolved").Group("name,urgency").Having("urgency = ? and name = ?", "high", name).Find(&highCount)
+	u.DB.Model(Incident{}).Select("name,count(*) as High").Where("status = ?", "resolved").Where("service LIKE ?", service).Group("name,urgency").Having("urgency = ? and name = ?", "high", name).Find(&highCount)
 
 	if len(highCount) == 0 {
 		count = 0
@@ -88,16 +85,16 @@ func (u *Manage) alertUrgentHighCount(name string) int {
 	}
 	return count
 }
-func (u *Manage) alertUrgentLowCount(name string) int {
+func (u *Manage) alertUrgentLowCount(name string, service string) int {
 	type urgentLow struct {
-		Service string
-		Low     int
+		Alert string
+		Low   int
 	}
 
 	var lowCount []urgentLow
 	var count int
 
-	u.DB.Model(Incident{}).Select("name,count(*) as Low").Where("status = ?", "resolved").Group("name,urgency").Having("urgency = ? and name = ?", "low", name).Find(&lowCount)
+	u.DB.Model(Incident{}).Select("name,count(*) as Low").Where("status = ?", "resolved").Where("service LIKE ?", service).Group("name,urgency").Having("urgency = ? and name = ?", "low", name).Find(&lowCount)
 	if len(lowCount) == 0 {
 		count = 0
 	} else {
@@ -126,6 +123,8 @@ func (u *Manage) services(w http.ResponseWriter, req *http.Request) {
 		"serviceUrgentHighCount": u.serviceUrgentHighCount,
 		"serviceUrgentLowCount":  u.serviceUrgentLowCount,
 		"alertByService":         u.alertByService,
+		"alertUrgentLowCount":    u.alertUrgentLowCount,
+		"alertUrgentHighCount":   u.alertUrgentHighCount,
 		"alertDuration":          u.alertDuration,
 	}
 

@@ -72,8 +72,8 @@ a {
               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ $s }}" aria-expanded="true" aria-controls="collapse{{ $s }}">
                 {{$d := alertDuration $alert.Name}}
                 <span class="badge bg-primary" >{{$d}}</span>
-                {{ $lowCount := alertUrgentLowCount $alert.Name }}
-                {{ $highCount := alertUrgentHighCount $alert.Name }}
+                {{ $lowCount := alertUrgentLowCount $alert.Name "%"}}
+                {{ $highCount := alertUrgentHighCount $alert.Name "%"}}
                 <span class="badge bg-info text-dark p-1 mr-5">{{$alert.Count}}</span>
                 <span class="badge bg-danger p-1 mr-5">{{$highCount}}</span>
                 <span class="badge bg-warning text-dark p-1 mr-5">{{$lowCount}}</span>

@@ -8,6 +8,7 @@ import (
 	log "github.com/sirupsen/logrus"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
 )
 
 type Specification struct {
@@ -27,7 +28,9 @@ func initENV() Specification {
 }
 
 func initDB() *gorm.DB {
-	db, err := gorm.Open(sqlite.Open("incidents.db"))
+	db, err := gorm.Open(sqlite.Open("incidents.db"), &gorm.Config{
+		Logger: logger.Default.LogMode(logger.Silent),
+	})
 	if err != nil {
 		log.WithFields(log.Fields{
 			"error": err,
