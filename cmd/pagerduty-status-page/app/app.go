@@ -37,7 +37,7 @@ func initDB() *gorm.DB {
 		}).Fatalln("Cant initialize sqlite database")
 	}
 
-	db.AutoMigrate(&manage.Incident{})
+	err = db.AutoMigrate(&manage.Incident{})
 	if err != nil {
 		log.WithFields(log.Fields{
 			"error": err,
@@ -47,7 +47,6 @@ func initDB() *gorm.DB {
 }
 
 func RunIncidents(manager manage.Manage) {
-
 	go func() {
 		ticker := time.NewTicker(300 * time.Second)
 
@@ -70,14 +69,12 @@ func RunIncidents(manager manage.Manage) {
 }
 
 func RunAnalytics(manager manage.Manage) {
-
 	s := initENV()
 
 	go func() {
 		ticker := time.NewTicker(60 * time.Minute)
 
 		for ; true; <-ticker.C {
-
 			var incidents []manage.Incident
 
 			lastUpdate, err := manager.GetLastUpdateDaysAgo()

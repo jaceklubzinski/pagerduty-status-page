@@ -16,7 +16,6 @@ func (m *Manage) FilterResolvedIncidents(lastUpdate string, alertRegex string) (
 	r := regexp.MustCompile(alertRegex)
 
 	for {
-
 		opts := pagerduty.ListIncidentsOptions{
 			APIListObject: pagerduty.APIListObject{
 				Offset: c,
@@ -31,7 +30,6 @@ func (m *Manage) FilterResolvedIncidents(lastUpdate string, alertRegex string) (
 			return inc, err
 		}
 		for _, p := range list.Incidents {
-
 			if result := r.FindStringSubmatch(p.Title); result != nil {
 				i := Incident{
 					Name:         result[1],
@@ -68,7 +66,6 @@ func (m *Manage) GetIncidents() error {
 		return err
 	}
 	for _, p := range list.Incidents {
-
 		i := Incident{
 			Name:      p.Title,
 			Service:   p.Service.Summary,

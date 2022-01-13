@@ -5,7 +5,6 @@ import (
 )
 
 func (m *Manage) GetLastUpdateDaysAgo() (string, error) {
-
 	var last time.Time
 
 	rows, _ := m.DB.Model(Incident{}).Select("last_change_at as d").Order("1 desc").Limit(1).Rows()

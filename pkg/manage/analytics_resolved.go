@@ -52,7 +52,6 @@ func (u *Manage) serviceUrgentLowCount(name string) int {
 	return count
 }
 func (u *Manage) alertByService(service string) []string {
-
 	type alert struct {
 		Name  string
 		Count int
