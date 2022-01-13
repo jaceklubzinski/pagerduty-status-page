@@ -127,7 +127,7 @@ func (u *Manage) services(w http.ResponseWriter, req *http.Request) {
 		"alertDuration":          u.alertDuration,
 	}
 
-	t := template.Must(template.New("services.tmpl").Funcs(fmap).ParseFiles("services.tmpl", "navbar.tmpl"))
+	t := template.Must(template.New("services.tmpl").Funcs(fmap).ParseFiles("pkg/manage/templates/services.tmpl", "pkg/manage/templates/navbar.tmpl", "pkg/manage/templates/searchbar.tmpl", "pkg/manage/templates/style.tmpl"))
 
 	type s struct {
 		Service string
@@ -149,7 +149,7 @@ func (u *Manage) incidents(w http.ResponseWriter, req *http.Request) {
 		"alertDuration":        u.alertDuration,
 	}
 
-	t := template.Must(template.New("incidents.tmpl").Funcs(fmap).ParseFiles("incidents.tmpl", "navbar.tmpl"))
+	t := template.Must(template.New("incidents.tmpl").Funcs(fmap).ParseFiles("pkg/manage/templates/incidents.tmpl", "pkg/manage/templates/navbar.tmpl", "pkg/manage/templates/searchbar.tmpl", "pkg/manage/templates/style.tmpl"))
 
 	type result struct {
 		Name  string

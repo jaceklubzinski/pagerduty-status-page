@@ -21,7 +21,7 @@ func (u *Manage) manage(w http.ResponseWriter, req *http.Request) {
 		"trim": u.trimService,
 	}
 
-	t := template.Must(template.New("overview.tmpl").Funcs(fmap).ParseFiles("overview.tmpl", "navbar.tmpl"))
+	t := template.Must(template.New("overview.tmpl").Funcs(fmap).ParseFiles("pkg/manage/templates/overview.tmpl", "pkg/manage/templates/navbar.tmpl", "pkg/manage/templates/searchbar.tmpl", "pkg/manage/templates/style.tmpl"))
 
 	err := t.Execute(w, u.Incidents)
 	if err != nil {
