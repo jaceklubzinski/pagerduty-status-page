@@ -12,7 +12,7 @@ func (m *Manage) GetServices() error {
 	for _, s := range services {
 		m.Incidents[s.Name] = make(map[string][]Incident)
 	}
-	log.Debug("Services retrived from PagerDuty")
+	log.Debug("services retrived from PagerDuty")
 
 	return nil
 }

@@ -6,6 +6,7 @@ import (
 
 	"github.com/PagerDuty/go-pagerduty"
 	"github.com/stretchr/testify/assert"
+	"gorm.io/gorm"
 )
 
 type mockAPIClient struct{}
@@ -53,7 +54,9 @@ func (c *mockAPIClient) ListI(opts pagerduty.ListIncidentsOptions) (*pagerduty.L
 func TestGetIncidents(t *testing.T) {
 	pdclient := &mockAPIClient{}
 	incidents := make(map[string]map[string][]Incident)
-	manager := Manage{pdclient, incidents}
+	var db *gorm.DB
+
+	manager := Manage{pdclient, incidents, db}
 	err := manager.GetServices()
 	if err != nil {
 		t.Fatalf("an error '%s' was not expected when get services", err)

@@ -4,6 +4,7 @@ import "github.com/jaceklubzinski/pagerduty-status-page/cmd/pagerduty-status-pag
 
 func main() {
 	manager := app.NewPDStatus()
-	app.Run(manager)
+	app.RunIncidents(manager)
+	app.RunAnalytics(manager)
 	manager.Listen()
 }
